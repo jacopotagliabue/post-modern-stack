@@ -235,10 +235,10 @@ class dbtFlow(FlowSpec):
         from comet_ml import Experiment
         from model.lstm_model import get_model
         import numpy as np
-        from tensorflow.keras.optimizers import Adam
-        from tensorflow.keras.callbacks import EarlyStopping
-        from tensorflow.keras.preprocessing.text import Tokenizer
-        from tensorflow.keras.preprocessing.sequence import pad_sequences
+        from tensorflow.keras.optimizers import Adam # pylint: disable=import-error
+        from tensorflow.keras.callbacks import EarlyStopping # pylint: disable=import-error 
+        from tensorflow.keras.preprocessing.text import Tokenizer # pylint: disable=import-error
+        from tensorflow.keras.preprocessing.sequence import pad_sequences # pylint: disable=import-error
 
         # TODO: pick a sensible EXP name!!!
         self.COMET_EXP_NAME = 'my_lstm_recs'
@@ -353,7 +353,6 @@ class dbtFlow(FlowSpec):
         Load the train model and use a custom RecList to test it
         and report its performance!
         """
-        import numpy as np
         from model.lstm_model import LSTMRecModel
         from model.my_reclist import MyMetaflowRecList
         rec_model = LSTMRecModel(model_dict=self.model)
@@ -382,7 +381,7 @@ class dbtFlow(FlowSpec):
         """
         import shutil
         import tarfile
-        from tensorflow.keras.models import model_from_json
+        from tensorflow.keras.models import model_from_json # pylint: disable=import-error
 
         # skip the deployment if not needed
         if not bool(int(os.getenv('SAGEMAKER_DEPLOY'))):

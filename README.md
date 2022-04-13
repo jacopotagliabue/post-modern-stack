@@ -104,9 +104,9 @@ Please note that instead of having a local dbt folder, you could have your dbt c
 
 Once the above setup steps are completed, you can run the flow:
 
-* cd into the `src` folder and:
-* run the flow with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py --package-suffixes ".py" run --max-workers 4`, where `METAFLOW_PROFILE` is needed to select a specific Metaflow config (you can omit it, if you're using the default), `AWS_PROFILE` is needed to select a specific AWS config that runs the flow and it's related AWS infrastructure (you can omit it, if you're using the default), and `AWS_DEFAULT_REGION` is needed to specify the target AWS region (you can omit it, if you've it already specified in your local AWS PROFILE and you do not wish to change it).
-* when it's done, you can also visualize a card wth `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard`.
+* cd into the `src` folder;
+* run the flow with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py --package-suffixes ".py" run --max-workers 4`, where `METAFLOW_PROFILE` is needed to select a specific Metaflow config (you can omit it, if you're using the default), `AWS_PROFILE` is needed to select a specific AWS config that runs the flow and it's related AWS infrastructure (you can omit it, if you're using the default), and `AWS_DEFAULT_REGION` is needed to specify the target AWS region (you can omit it, if you've it already specified in your local AWS PROFILE and you do not wish to change it);
+* visualize the preformance card with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` (see below for an intro to [RecList](https://github.com/jacopotagliabue/reclist)).
 
 ### Results
 
