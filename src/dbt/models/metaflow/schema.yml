@@ -1,0 +1,13 @@
+version: 2
+
+models:
+    - name: shopping_events_exploded
+      description: "Map shopping data in JSON to a fully flat structure"
+
+    - name: nep_session_events
+      description: "Map flat rows into arrays of user-product interaction for training"
+      columns:
+      - name: SESSION_ID
+        tests:
+          - unique
+          - not_null

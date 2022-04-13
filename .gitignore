@@ -127,3 +127,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# metaflow
+.metaflow/
+
+metaflow.s3*/
+
+*.html
+
+# gensim key vectors
+*.kv
+.DS_Store
+*.json
+*.reclist
+*.gz
+.serverless/
+*.csv
+
+# dbt
+*log.legacy
