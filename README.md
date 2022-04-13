@@ -1,4 +1,4 @@
-# post-modern-data-stack-private
+# The Post-Modern Data Stack
 
 Joining the modern data stack with the modern ML stack
 
