@@ -52,6 +52,8 @@ Setup a virtual environment with the project dependencies:
 * `source venv/bin/activate`
 * `pip install -r requirements.txt`
 
+NOTE: the current version of RecList has some old dependencies which may results in some (harmless) pip conflicts - conflicts will disappear with the new version, coming out soon.
+
 Create a local version of the `local.env` file named only `.env` (do _not_ commit it!), and make sure to fill its values properly:
 
 | VARIABLE | TYPE | MEANING |
@@ -69,9 +71,9 @@ Create a local version of the `local.env` file named only `.env` (do _not_ commi
 | COMET_API_KEY | string  | Comet ML api key  |
 | DBT_CLOUD| 0-1 (0)  | Enable/disable running dbt on the cloud |
 | SAGEMAKER_DEPLOY| 0-1 (1)  | Enable/disable deploying the model artifact to a Sagemaker endpoint  |
-| DBT_ACCOUNT_ID | int  | dbt cloud account id  |
-| DBT_PROJECT_ID | int  | dbt cloud project id  |
-| DBT_JOB_ID | int  | dbt cloud job id  |
+| DBT_ACCOUNT_ID | int  | dbt cloud account id (you can find it in the dbt cloud URL)  |
+| DBT_PROJECT_ID | int  | dbt cloud project id  (you can find it in the dbt cloud URL) |
+| DBT_JOB_ID | int  | dbt cloud job id (you can find it in the dbt cloud URL) |
 | DBT_API_KEY| string  | dbt cloud api key  |
 
 ### Load data into Snowflake 
