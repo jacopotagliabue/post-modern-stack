@@ -77,13 +77,13 @@ Create a local version of the `local.env` file named only `.env` (do _not_ commi
 
 ### Load data into Snowflake 
 
-Original datasets are from the Coveo SIGIR Data Challenge. To save you from downloading the original data dump and dealing with large text files, we re-used the abstraction over the data provided by RecList. If you run `upload_to_snowflake.py` in the `upload` folder from your laptop as a one-off script, the program will download the Data Challenge dataset and dump it to a Snowflake table that simulates the append-only log pattern. This allows us to use dbt and Metaflow to run a simple but realistic ETL and ML code over real-world data.
+Original datasets are from the Coveo SIGIR Data Challenge. To save you from downloading the original data dump and dealing with large text files, we re-used the abstraction over the data provided by RecList. If you run `upload_to_snowflake.py` in the `upload` folder from your laptop as a one-off script, the program will download the Data Challenge dataset and dump it to a Snowflake table that simulates the [append-only log pattern](https://towardsdatascience.com/the-modern-data-pattern-d34d42216c81). This allows us to use dbt and Metaflow to run a realistic ELT and ML code over real-world data.
 
 Once you run the script, check your Snowflake for the new schema/table:
 
 ![Raw table in Snowflake](/images/raw_table.png)
 
-If you wish to see how a realistic data ingestion pipeline works (i.e. an endpoint streaming into Snowlake real-time, individual events, instead of a bulk upload), we open-sourced a serverless pipeline here.
+If you wish to see how a data ingestion pipeline works (i.e. an endpoint streaming into Snowlake real-time, individual events, instead of a bulk upload), we open-sourced a [serverless pipeline](https://github.com/jacopotagliabue/paas-data-ingestion) as well.
 
 ### dbt
 
