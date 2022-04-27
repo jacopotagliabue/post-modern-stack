@@ -27,7 +27,6 @@ A Snowflake account is needed to host the data, and a working Metaflow + dbt set
 * _Snowflake account_: [sign-up for a free trial](https://signup.snowflake.com).
 * _AWS account_: [sign-up for a free AWS account](https://aws.amazon.com/free/).
 * _Metaflow on AWS_: [follow the setup guide](https://docs.metaflow.org/metaflow-on-aws).
-
 * _dbt core setup_: on top of installing the open source package (already included in the `requirements.txt`), you need to point dbt to your Snowflake instance with the proper [dbt_profile](https://docs.getdbt.com/dbt-cli/configure-your-profile), Make sure the SCHEMA there matches with what is specified in the `.env` file (`SF_SCHEMA`).
 
 _Adding experiment tracking_
@@ -143,7 +142,9 @@ Of course, the post-modern stack can be further expanded or improved in many way
 
 ## Acknowledgements
 
-TBC
+Special thanks to Sung Won Chung from dbt Labs, Hugo Bowne-Anderson, Gaurav Bhushan, Savin Goyal from Outerbounds, Luca Bigon, Andrea Polonioli and Ciro Greco from Coveo. 
+
+If you liked this project and the related article, please take a second to add a star to this and our [RecList](https://github.com/jacopotagliabue/reclist) repository!
 
 Contributors:
 
