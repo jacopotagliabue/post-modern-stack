@@ -134,6 +134,12 @@ If you run the flow with dbt cloud, you will also find the dbt run in the histor
 
 The project includes a (stub of a) custom [DAG card](https://outerbounds.com/blog/integrating-pythonic-visual-reports-into-ml-pipelines/) showing how the model is performing according to [RecList](https://github.com/jacopotagliabue/reclist), our open-source framework for behavioral testing. We could devote an [article](https://towardsdatascience.com/ndcg-is-not-all-you-need-24eb6d2f1227) / [paper](https://arxiv.org/abs/2111.09963) just to this (as we actually did recently!); you can visualize it with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` at the end of your run. No matter how small, we wanted to include the card/test as a reminder of _how important is to understand model behavior before deployment_. Cards are a natural UI to display some of the RecList information: since readable, shareable (self-)documentation is crucial for production, RecList new major release will include out-of-the-box support for visualization and reporting tools: reach out if you're interested!
 
+As a further bonus feature, *only when running with the dbt core setup*, the (very not-production-ready) function `get_dag_from_manifest` will read the local manifest file and produce a dictionary compatible with Metaflow Card API. If you type `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view run_transformation --id dbtCard` at the end of a successful run, you should see a card displaying the dbt card _as a Metaflow card_, as in the image below:
+
+ ![dbt card on Metaflow](/images/dbt_card.png)
+
+ We leave to the reader (and / or to future iterations) to explore how to combine dbt, RecList and other info into a custom, well-designed card!
+
 ## What's next?
 
 Of course, the post-modern stack can be further expanded or improved in many ways. Without presumption of completeness, these are some ideas to start:
@@ -141,6 +147,8 @@ Of course, the post-modern stack can be further expanded or improved in many way
 * on the dataOps side, we could include some data quality checks, either by improving our dbt setup, or by introducing additional tooling: at [reasonable scale](https://towardsdatascience.com/hagakure-for-mlops-the-four-pillars-of-ml-at-reasonable-scale-5a09bd073da) the greater marginal value is typically to be found in better data, as compared to better models;
 * on the MLOps side, we barely scracthed the surface: one side, we kept the modeling simple and avoid any tuning, which is however very easy to do using Metaflow buit-in parallelization abilities; on the other, you may decide to complicate the flow with other tools, improve on serving etc. (e.g. the proposal [here](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat));
 * a proper RecList for this flow is yet to be developed, as the current proposal is nothing more than a stub showing how easy it is to run a devoted test suite when needed: you can augment the simple suite we prepared, improve the visualization on cards or both - since RecList roadmap is quickly progressing, we expect a deeper integration and a whole new set of functionalities to be announced soon. Stay tuned for our next iteration on this!
+
+Is this the *only* way to run dbt in Metaflow? Of course not - in particular, you could think of writing a small wrapper around a flow and a dbt-core project that creates individual Metaflow steps corresponding to individual dbt steps, pretty much like suggested [here](https://www.astronomer.io/blog/airflow-dbt-1/) for another orchestrator. But this is surely a story for another repo / time ;-)
 
 ## Acknowledgements
 

@@ -12,11 +12,13 @@ Please check the README and the companion blog post for the relevant background 
 
 """
 
+from matplotlib.pyplot import contour
 from metaflow import FlowSpec, step, batch, S3, Parameter, current, Run, environment, card
 from metaflow.cards import Table
 from custom_decorators import enable_decorator, pip
 import os
 import subprocess
+import json
 import time
 from datetime import datetime
 
@@ -118,12 +120,65 @@ class dbtFlow(FlowSpec):
 
         self.next(self.run_transformation)
 
+    def get_dag_from_manifest(self, current_path):
+        """
+        This is a simple draft, for a function taking as input the manifest file
+        produced by dbt and producing a dag-like structure compatible with the Metaflow
+        API for card building.
+
+        Starting from the code here to read the file: https://www.astronomer.io/blog/airflow-dbt-1/
+
+        TODO: this is just a stub and it's not guaranteed (nor is intended) to generalize to
+        arbitrary flows. It is included here as a bonus feature to showcase how deep the interplay
+        between Metaflow and dbt can really be (thanks valay for the pointers!) 
+        """
+        local_filepath = current_path + "/dbt/target/manifest.json"
+        # debug
+        print(local_filepath)
+        with open(local_filepath) as f:
+            data = json.load(f)
+
+        dbt_dag = {
+            'start': {'type': 'start', 'box_next': True, 'box_ends': None, 'next': [], 'doc': 'Start!'},
+            'end': {'type': 'end', 'box_next': True, 'box_ends': None, 'next': [], 'doc': 'See you, dbt cowboy'}
+        }
+
+        # fill the dag with data about the nodes
+        for node in data["nodes"].keys():
+            if node.split(".")[0] == "model":
+                cnt_doc = data["nodes"][node]["description"]
+                dbt_dag[node] = {'type': 'linear', 'box_next': True, 'box_ends': None, 'next': [], 'doc': cnt_doc} 
+
+        # fill the dependencies
+        for node in data["nodes"].keys():
+            if node.split(".")[0] == "model":
+                depends_on_nodes = data["nodes"][node]["depends_on"]["nodes"]
+                # this is the first node, add id to start
+                if not depends_on_nodes:
+                    dbt_dag['start']['next'] = [node]
+                for upstream_node in depends_on_nodes:
+                    upstream_node_type = upstream_node.split(".")[0]
+                    if upstream_node_type == "model":
+                        dbt_dag[upstream_node]['next'] = [node]
+
+        for node in dbt_dag.keys():
+            # node not upstream of anything
+            if node != 'end' and not dbt_dag[node]['next']:
+                print("End node is: {}".format(node))
+                dbt_dag[node]['next'] = ['end']
+                break
+
+        return dbt_dag
+
+    @card(type='blank', id='dbtCard')
     @step
     def run_transformation(self):
         """
         Use dbt to transform raw data into tables / features
         """
         from clients.dbt_cloud_runner import dbtCloudRunner
+        from pathlib import Path
+        from metaflow.plugins.cards.card_modules.basic import DagComponent
 
         is_cloud = bool(int(os.getenv('DBT_CLOUD')))
         if is_cloud:
@@ -154,6 +209,11 @@ class dbtFlow(FlowSpec):
             process.communicate()
             if process.returncode != 0:
                 raise Exception('dbt invocation returned exit code {}'.format(process.returncode))
+            # build a card
+            current_path = str(Path(__file__).resolve().parent)
+            self.dbt_dag = self.get_dag_from_manifest(current_path)
+            print(self.dbt_dag)
+            current.card.append(DagComponent(data=self.dbt_dag))
 
         self.next(self.get_dataset)
 
