@@ -3,6 +3,6 @@ snowflake-connector-python==2.7.4
 python-dotenv==0.19.2
 comet-ml==3.26.0
 sagemaker==2.59.8
-reclist==0.2.2
+reclist==0.2.3
 dbt-snowflake==1.0.0
 tensorflow==2.8.0

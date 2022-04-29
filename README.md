@@ -4,9 +4,11 @@ Joining the modern data stack with the modern ML stack
 
 ## Overview
 
-*April 2022*: this is a WIP, come back often for updates and the blog post (FORTHCOMING)!
+*May 2022*: this is a WIP, come back often for updates and the blog post (FORTHCOMING)!
 
-We show how a _post-modern data stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps.
+We show how a _post-modern data stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps. A quick, high-level walk-through of the stack can be found in our intro video:
+
+[![YouTube intro video](/images/youtube.png)](https://www.youtube.com/watch?v=5kHDb-XGHtc)
 
 As a use case, we pick a popular RecSys challenge, session-based recommendation: given the interactions between a shopper and some products in a browsing session, can we train a model to predic what the next interaction will be? The flow is powered by our open-source [Coveo Data Challenge dataset](https://github.com/coveooss/SIGIR-ecom-data-challenge) - as model, we train a vanilla LSTM, a model just complex enough to make good use of cloud computing. At a quick glance, this is what we are building:
 
@@ -114,7 +116,7 @@ Once the above setup steps are completed, you can run the flow:
 If you run the fully-featured flow (i.e. `SAGEMAKER_DEPLOY=1`) with the recommended setup, you will end up with:
 
 * an up-to-date view in Snowflake, leveraging dbt to make raw data ready for machine learning; 
-* versioned datasets and model artifacts in your AWS, accessible through the standard Metaflow client API;
+* versioned datasets and model artifacts in your AWS, accessible through the standard [Metaflow client API](https://docs.metaflow.org/metaflow/client);
 * a Comet dashboard for experiment tracking of the deep learning model, displaying training stats;
 * a versioned Metaflow card containing (some of) the tests run with RecList (see below);
 *  finally, a DL-based, sequential recommender system serving predictions in real-time using SageMaker for inference.
@@ -130,15 +132,15 @@ If you run the flow with dbt cloud, you will also find the dbt run in the histor
 
 ### BONUS: RecList and Metaflow cards
 
-The project includes a (stub of a) custom [DAG card](https://outerbounds.com/blog/integrating-pythonic-visual-reports-into-ml-pipelines/) showing how the model is performing according to [RecList](https://github.com/jacopotagliabue/reclist), our open-source framework for behavioral testing. We could devote an [article](https://towardsdatascience.com/ndcg-is-not-all-you-need-24eb6d2f1227) / [paper](https://arxiv.org/abs/2111.09963) just to this (as we actually did recently!); you can visualize it with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` at the end of your run. No matter how small, we wanted to include the card/test as a reminder of how important is to understand model behavior before deployment. Cards are a natural UI to display some of the RecList information (what a coincidence!): since readable, shareable (self-)documentation is crucial for production, we plan on preparing a new open source project focused on this: reach out if you're interested!
+The project includes a (stub of a) custom [DAG card](https://outerbounds.com/blog/integrating-pythonic-visual-reports-into-ml-pipelines/) showing how the model is performing according to [RecList](https://github.com/jacopotagliabue/reclist), our open-source framework for behavioral testing. We could devote an [article](https://towardsdatascience.com/ndcg-is-not-all-you-need-24eb6d2f1227) / [paper](https://arxiv.org/abs/2111.09963) just to this (as we actually did recently!); you can visualize it with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` at the end of your run. No matter how small, we wanted to include the card/test as a reminder of _how important is to understand model behavior before deployment_. Cards are a natural UI to display some of the RecList information: since readable, shareable (self-)documentation is crucial for production, RecList new major release will include out-of-the-box support for visualization and reporting tools: reach out if you're interested!
 
 ## What's next?
 
 Of course, the post-modern stack can be further expanded or improved in many ways. Without presumption of completeness, these are some ideas to start:
 
-* on the dataOps side, we could include some data quality tests, either by improving our dbt setup, or by introducing additional tooling: at [reasonable scale](https://towardsdatascience.com/hagakure-for-mlops-the-four-pillars-of-ml-at-reasonable-scale-5a09bd073da) the greater marginal value is typically to be found in better data, as compared to better models;
-* on the MLOps side, we barely scracthed the surface: one side, we kept the modeling simple and avoid any tuning, which is however very easy to do _using Metaflow_ buit-in parallelization abilities); on the other, you may decide to complicate the flow with other tools, improve on serving etc. (see for example [here](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat))
-* a proper RecList for this use case is yet to be developed: you can augment the simple test suite we prepared, improved the visualization or both - stay tuned for our next iteration on this!
+* on the dataOps side, we could include some data quality checks, either by improving our dbt setup, or by introducing additional tooling: at [reasonable scale](https://towardsdatascience.com/hagakure-for-mlops-the-four-pillars-of-ml-at-reasonable-scale-5a09bd073da) the greater marginal value is typically to be found in better data, as compared to better models;
+* on the MLOps side, we barely scracthed the surface: one side, we kept the modeling simple and avoid any tuning, which is however very easy to do using Metaflow buit-in parallelization abilities; on the other, you may decide to complicate the flow with other tools, improve on serving etc. (e.g. the proposal [here](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat));
+* a proper RecList for this flow is yet to be developed, as the current proposal is nothing more than a stub showing how easy it is to run a devoted test suite when needed: you can augment the simple suite we prepared, improve the visualization on cards or both - since RecList roadmap is quickly progressing, we expect a deeper integration and a whole new set of functionalities to be announced soon. Stay tuned for our next iteration on this!
 
 ## Acknowledgements
 
@@ -148,9 +150,8 @@ If you liked this project and the related article, please take a second to add a
 
 Contributors:
 
-* [Jacopo Tagliabue](https://www.linkedin.com/in/jacopotagliabue/), general design, Metaflow fan boy, prototype
-* [Patrick John Chia](https://www.linkedin.com/in/patrick-john-chia/), model, deployment and testing
-
+* [Jacopo Tagliabue](https://www.linkedin.com/in/jacopotagliabue/), general design, Metaflow fan boy, prototype.
+* [Patrick John Chia](https://www.linkedin.com/in/patrick-john-chia/), model, deployment and testing.
 
 ## License
 

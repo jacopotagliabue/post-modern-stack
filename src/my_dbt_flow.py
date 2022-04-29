@@ -225,7 +225,7 @@ class dbtFlow(FlowSpec):
     # TODO: os.getenv may not work when we resume instead of starting from scracth
     @enable_decorator(batch(gpu=1, memory=80000, image=os.getenv('TRAIN_STEP_IMAGE')),
                       flag=os.getenv('EN_BATCH'))
-    @pip(libraries={'reclist': '0.2.2', 'comet-ml': '3.26.0', 'requests':'2.24.0', 'idna': '2.10', 'numpy': '1.19.0'})
+    @pip(libraries={'reclist': '0.2.3', 'comet-ml': '3.26.0', 'numpy': '1.19.0'}) # numpy is there to avoid TF complaining
     @step
     def train_model(self):
         """
@@ -345,7 +345,7 @@ class dbtFlow(FlowSpec):
     @environment(vars={'EN_BATCH': os.getenv('EN_BATCH')})
     @enable_decorator(batch(gpu=1, memory=80000, image=os.getenv('TRAIN_STEP_IMAGE')),
                       flag=os.getenv('EN_BATCH'))
-    @pip(libraries={'reclist': '0.2.2', 'requests':'2.24.0', 'idna': '2.10', 'numpy': '1.19.0'})
+    @pip(libraries={'reclist': '0.2.3', 'numpy': '1.19.0'}) # numpy is there to avoid TF complaining
     @card(type='blank', id='recCard')
     @step
     def test_model(self):
