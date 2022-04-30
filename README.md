@@ -134,7 +134,7 @@ If you run the flow with dbt cloud, you will also find the dbt run in the histor
 
 The project includes a (stub of a) custom [DAG card](https://outerbounds.com/blog/integrating-pythonic-visual-reports-into-ml-pipelines/) showing how the model is performing according to [RecList](https://github.com/jacopotagliabue/reclist), our open-source framework for behavioral testing. We could devote an [article](https://towardsdatascience.com/ndcg-is-not-all-you-need-24eb6d2f1227) / [paper](https://arxiv.org/abs/2111.09963) just to this (as we actually did recently!); you can visualize it with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` at the end of your run. No matter how small, we wanted to include the card/test as a reminder of _how important is to understand model behavior before deployment_. Cards are a natural UI to display some of the RecList information: since readable, shareable (self-)documentation is crucial for production, RecList new major release will include out-of-the-box support for visualization and reporting tools: reach out if you're interested!
 
-As a further bonus feature, *only when running with the dbt core setup*, the (very not-production-ready) function `get_dag_from_manifest` will read the local manifest file and produce a dictionary compatible with Metaflow Card API. If you type `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view run_transformation --id dbtCard` at the end of a successful run, you should see a card displaying the dbt card _as a Metaflow card_, as in the image below:
+As a *bonus* bonus feature (thanks Valay for the snippet!), *only when running with the dbt core setup*, the (not-production-ready) function `get_dag_from_manifest` will read the local manifest file and produce a dictionary compatible with Metaflow Card API. If you type `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view run_transformation --id dbtCard` at the end of a successful run, you should see a card displaying the dbt card _as a Metaflow card_, as in the image below:
 
  ![dbt card on Metaflow](/images/dbt_card.png)
 
@@ -152,7 +152,7 @@ Is this the *only* way to run dbt in Metaflow? Of course not - in particular, yo
 
 ## Acknowledgements
 
-Special thanks to Sung Won Chung from dbt Labs, Hugo Bowne-Anderson, Gaurav Bhushan, Savin Goyal from Outerbounds, Luca Bigon, Andrea Polonioli and Ciro Greco from Coveo. 
+Special thanks to Sung Won Chung from dbt Labs, Hugo Bowne-Anderson, Gaurav Bhushan, Savin Goyal, Valay Dave from Outerbounds, Luca Bigon, Andrea Polonioli and Ciro Greco from Coveo. 
 
 If you liked this project and the related article, please take a second to add a star to this and our [RecList](https://github.com/jacopotagliabue/reclist) repository!
 
