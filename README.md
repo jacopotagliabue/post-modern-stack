@@ -24,7 +24,7 @@ The code is a self-contained recommender project; however, since we leverage bes
 
 _The basics: Metaflow, Snowflake and dbt_
 
-A Snowflake account is needed to host the data, and a working Metaflow + dbt setup is needed to run the flow; while not strictly necessary, we suggest a full Metaflow+AWS setup as a starting point. 
+A Snowflake account is needed to host the data, and a working Metaflow + dbt setup is needed to run the flow; we *strongly* suggest to run `Metaflow on AWS` (as it is the intended setup), but with some minor modifications you should be able to run the flow with a local store as well. 
 
 * _Snowflake account_: [sign-up for a free trial](https://signup.snowflake.com).
 * _AWS account_: [sign-up for a free AWS account](https://aws.amazon.com/free/).
