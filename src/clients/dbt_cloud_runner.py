@@ -39,7 +39,7 @@ class dbtCloudRunner():
     At init time, pass the relevant dbt cloud params
     """
 
-    DTB_CLOUD_BASE_URL = 'https://cloud.getdbt.com/api/v2/accounts'
+    DTB_CLOUD_BASE_URL = 'https://cloud.getdbt.com'
 
     def __init__(
         self, 
@@ -63,7 +63,7 @@ class dbtCloudRunner():
         match response payload from dbt Cloud api, return the job id,
         to be re-used for status tracking in the mail loop.
         """
-        url = f"{self.DTB_CLOUD_BASE_URL}/{self.account_id}/jobs/{self.job_id}/run/"
+        url = f"{self.DTB_CLOUD_BASE_URL}/api/v2/accounts/{self.account_id}/jobs/{self.job_id}/run/"
         headers = {"Authorization": f"Token {self.dbt_cloud_api_key}"}
         res = requests.post(
             url=url,
@@ -93,7 +93,7 @@ class dbtCloudRunner():
         """
         Check job status based on job id
         """
-        url = f"{self.DTB_CLOUD_BASE_URL}/{self.account_id}/runs/{job_run_id}/"
+        url = f"{self.DTB_CLOUD_BASE_URL}/api/v2/accounts/{self.account_id}/runs/{job_run_id}/"
         headers = {"Authorization": f"Token {self.dbt_cloud_api_key}"}
         res = requests.get(url=url, headers=headers)
         res.raise_for_status()
