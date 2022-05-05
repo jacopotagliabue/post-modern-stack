@@ -12,7 +12,6 @@ Please check the README and the companion blog post for the relevant background 
 
 """
 
-from matplotlib.pyplot import contour
 from metaflow import FlowSpec, step, batch, S3, Parameter, current, Run, environment, card
 from metaflow.cards import Table
 from custom_decorators import enable_decorator, pip
