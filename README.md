@@ -1,4 +1,4 @@
-# The Post-Modern Data Stack
+# The Post-Modern Stack
 
 Joining the modern data stack with the modern ML stack
 
@@ -6,7 +6,7 @@ Joining the modern data stack with the modern ML stack
 
 *May 2022*: this is a WIP, come back often for updates and the blog post (FORTHCOMING)!
 
-We show how a _post-modern data stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps. A quick, high-level walk-through of the stack can be found in our intro video:
+We show how a _post-modern stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps. A quick, high-level walk-through of the stack can be found in our intro video:
 
 [![YouTube intro video](/images/youtube.png)](https://www.youtube.com/watch?v=5kHDb-XGHtc)
 
