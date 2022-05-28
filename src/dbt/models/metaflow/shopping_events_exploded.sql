@@ -7,7 +7,7 @@
 WITH latest_etl AS (
     SELECT
         cb."ETL_ID"
-    FROM POST_MODERN_DATA_STACK."COVEO_DATASET_RAW" as cb
+    FROM {{ var('SF_SCHEMA') }}.{{ var('SF_TABLE') }} as cb
     ORDER BY cb."ETL_TIMESTAMP" DESC
     LIMIT 1
 )
