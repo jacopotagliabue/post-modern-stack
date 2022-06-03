@@ -4,9 +4,7 @@ Joining the modern data stack with the modern ML stack
 
 ## Overview
 
-*May 2022*: this is a WIP, come back often for updates and the blog post (FORTHCOMING)!
-
-We show how a _post-modern stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps. A quick, high-level walk-through of the stack can be found in our intro video:
+As part our TDS series on MLOps, our [blog post](https://towardsdatascience.com/the-post-modern-stack-993ec3b044c1) shows how a _post-modern stack_ works, by deconstructing (see the pun?) our original [YDNABB](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) repo into the few fundamental pieces owning the actual compute: a data warehouse for dataOps, and Metaflow on AWS for MLOps. A quick, high-level walk-through of the stack can be found in our intro video:
 
 [![YouTube intro video](/images/youtube.png)](https://www.youtube.com/watch?v=5kHDb-XGHtc)
 
@@ -16,7 +14,7 @@ As a use case, we pick a popular RecSys challenge, session-based recommendation:
 
 As usual, we show a working, end-to-end, real-world flow: while you can run it locally with few thousands sessions to get the basics, we suggest you to use the `MAX_SESSIONS` variable to appreciate how well the stack scales - with no code changes - as millions of events are pushed to the warehouse.
 
-For an in-depth explanation of the philosophy behind the approach, please check the companion blog post (FORTHCOMING).
+For an in-depth explanation of the philosophy behind the approach, please check the companion [blog post](https://towardsdatascience.com/the-post-modern-stack-993ec3b044c1), and the previous episodes / repos in [the series](https://towardsdatascience.com/tagged/mlops-without-much-ops). 
 
 ## Pre-requisites
 
