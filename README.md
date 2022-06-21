@@ -83,7 +83,7 @@ Once you run the script, check your Snowflake for the new schema/table:
 
 ![Raw table in Snowflake](/images/raw_table.png)
 
-If you wish to see how a data ingestion pipeline works (i.e. an endpoint streaming into Snowlake real-time, individual events, instead of a bulk upload), we open-sourced a [serverless pipeline](https://github.com/jacopotagliabue/paas-data-ingestion) as well.
+If you wish to see how a data ingestion pipeline works (i.e. an endpoint streaming into Snowflake real-time, individual events, instead of a bulk upload), we open-sourced a [serverless pipeline](https://github.com/jacopotagliabue/paas-data-ingestion) as well.
 
 ### dbt
 
@@ -107,7 +107,7 @@ Once the above setup steps are completed, you can run the flow:
 
 * cd into the `src` folder;
 * run the flow with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py --package-suffixes ".py" run --max-workers 4`, where `METAFLOW_PROFILE` is needed to select a specific Metaflow config (you can omit it, if you're using the default), `AWS_PROFILE` is needed to select a specific AWS config that runs the flow and it's related AWS infrastructure (you can omit it, if you're using the default), and `AWS_DEFAULT_REGION` is needed to specify the target AWS region (you can omit it, if you've it already specified in your local AWS PROFILE and you do not wish to change it);
-* visualize the preformance card with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` (see below for an intro to [RecList](https://github.com/jacopotagliabue/reclist)).
+* visualize the performance card with `METAFLOW_PROFILE=metaflow AWS_PROFILE=tooso AWS_DEFAULT_REGION=us-west-2 python my_dbt_flow.py card view test_model --id recCard` (see below for an intro to [RecList](https://github.com/jacopotagliabue/reclist)).
 
 ### Results
 
@@ -143,7 +143,7 @@ As a *bonus* bonus feature (thanks Valay for the snippet!), *only when running w
 Of course, the post-modern stack can be further expanded or improved in many ways. Without presumption of completeness, these are some ideas to start:
 
 * on the dataOps side, we could include some data quality checks, either by improving our dbt setup, or by introducing additional tooling: at [reasonable scale](https://towardsdatascience.com/hagakure-for-mlops-the-four-pillars-of-ml-at-reasonable-scale-5a09bd073da) the greater marginal value is typically to be found in better data, as compared to better models;
-* on the MLOps side, we barely scracthed the surface: one side, we kept the modeling simple and avoid any tuning, which is however very easy to do using Metaflow buit-in parallelization abilities; on the other, you may decide to complicate the flow with other tools, improve on serving etc. (e.g. the proposal [here](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat)). Swapping in-and-out different tools with similar functionalities should be easy: in a previous work, we [abstracted away experiment tracking](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat/blob/main/local_flow/rec/src/utils.py) and allow users to pick [Neptune](https://neptune.ai/) as an alternative SaaS platform. Similar considerations apply to this use case as well;
+* on the MLOps side, we barely scratched the surface: one side, we kept the modeling simple and avoid any tuning, which is however very easy to do using Metaflow built-in parallelization abilities; on the other, you may decide to complicate the flow with other tools, improve on serving etc. (e.g. the proposal [here](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat)). Swapping in-and-out different tools with similar functionalities should be easy: in a previous work, we [abstracted away experiment tracking](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat/blob/main/local_flow/rec/src/utils.py) and allow users to pick [Neptune](https://neptune.ai/) as an alternative SaaS platform. Similar considerations apply to this use case as well;
 * a proper RecList for this flow is yet to be developed, as the current proposal is nothing more than a stub showing how easy it is to run a devoted test suite when needed: you can augment the simple suite we prepared, improve the visualization on cards or both - since RecList roadmap is quickly progressing, we expect a deeper integration and a whole new set of functionalities to be announced soon. Stay tuned for our next iteration on this!
 
 Is this the *only* way to run dbt in Metaflow? Of course not - in particular, you could think of writing a small wrapper around a flow and a dbt-core project that creates individual Metaflow steps corresponding to individual dbt steps, pretty much like suggested [here](https://www.astronomer.io/blog/airflow-dbt-1/) for another orchestrator. But this is surely a story for another repo / time ;-)
